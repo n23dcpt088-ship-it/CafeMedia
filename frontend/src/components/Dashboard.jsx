@@ -7,7 +7,7 @@ import {
   getRecentActivities,
 } from "../api/mock";
 
-export default function Dashboard() {
+export default function Dashboard({ navigate }) {
   const [showNoti, setShowNoti] = useState(false);
   const notiRef = useRef(null);
 
@@ -19,14 +19,15 @@ export default function Dashboard() {
 
   const path =
     typeof window !== "undefined" ? window.location.pathname : "/index.html";
-  const isDashboardActive = path === "/" || path === "/index.html";
+  const isDashboardActive =
+    path === "/" || path === "/index.html" || path === "/dashboard";
 
   const handleCreate = () => {
-    window.location.href = "/editor.html?from=dashboard";
+    navigate("/editor");
   };
 
   const handleUser = () => {
-    window.location.href = "/profile.html";
+    navigate("/profile");
   };
 
   useEffect(() => {
@@ -69,7 +70,7 @@ export default function Dashboard() {
   }, [showNoti]);
 
   return (
-    <div className="app">
+    <div className="app dashboard-page">
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="brand">
@@ -78,13 +79,76 @@ export default function Dashboard() {
         </div>
 
         <nav className="nav">
-          <a href="/index.html" className={`nav-link ${isDashboardActive ? "active" : ""}`}>📊 <span>Dashboard</span></a>
-          <a href="/editor.html" className="nav-link">📝 <span>Nội dung</span></a>
-          <a href="/schedule.html" className="nav-link">📅 <span>Lịch xuất bản</span></a>
-          <a href="/livestream.html" className="nav-link">🎥 <span>Livestream</span></a>
-          <a href="/campaign.html" className="nav-link">📢 <span>Chiến dịch</span></a>
-          <a href="/seo.html" className="nav-link">⚙️ <span>SEO & Hiệu năng</span></a>
-          <a href="/profile.html" className="nav-link">👤 <span>Người dùng</span></a>
+          <a 
+            href="/dashboard" 
+            className={`nav-link ${isDashboardActive ? "active" : ""}`}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+            }}
+          >
+            📊 <span>Dashboard</span>
+          </a>
+          <a
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/editor");
+            }}
+            href="/editor"
+          >
+            📝 <span>Nội dung</span>
+          </a>
+          <a 
+            href="/schedule" 
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/schedule");
+            }}
+          >
+            📅 <span>Lịch xuất bản</span>
+          </a>
+          <a
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/livestream");
+            }}
+            href="/livestream"
+          >
+            🎥 <span>Livestream</span>
+          </a>
+          <a 
+            href="/campaign" 
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/campaign");
+            }}
+          >
+            📢 <span>Chiến dịch</span>
+          </a>
+          <a 
+            href="/seo" 
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/seo");
+            }}
+          >
+            ⚙️ <span>SEO & Hiệu năng</span>
+          </a>
+          <a 
+            href="/profile" 
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/profile");
+            }}
+          >
+            👤 <span>Người dùng</span>
+          </a>
         </nav>
 
         <div className="spacer" />
@@ -146,13 +210,13 @@ export default function Dashboard() {
                 <div className="noti-item">
                   <div className="noti-item-icon">🎥</div>
                   <div>
-                    Livestream “Giới thiệu sản phẩm mới” chuẩn bị diễn ra
+                    Livestream "Giới thiệu sản phẩm mới" chuẩn bị diễn ra
                   </div>
                 </div>
                 <div className="noti-item">
                   <div className="noti-item-icon">📢</div>
                   <div>
-                    Chiến dịch “Tháng 12 – Ấm áp” đạt 80% KPI
+                    Chiến dịch "Tháng 12 – Ấm áp" đạt 80% KPI
                   </div>
                 </div>
               </div>
@@ -253,17 +317,31 @@ export default function Dashboard() {
             )}
           </section>
 
-          {/* Middle: Charts (giữ nguyên SVG) */}
+          {/* Middle: Charts */}
           <section className="middle" aria-label="Phân tích">
-            {/* ... giữ nguyên 2 <article> chart như bạn đang có ... */}
-            {/* (không cần đụng tới nếu chỉ test dữ liệu KPI & event) */}
+            <article className="card">
+              <h3 style={{ margin: "0 0 1rem 0" }}>Lượt tương tác theo thời gian</h3>
+              <div style={{ padding: "1rem", textAlign: "center", color: "var(--text-2)" }}>
+                Biểu đồ engagement (placeholder)
+              </div>
+            </article>
+
+            <article className="card">
+              <h3 style={{ margin: "0 0 1rem 0" }}>Phân bố nội dung</h3>
+              <div style={{ padding: "1rem", textAlign: "center", color: "var(--text-2)" }}>
+                Biểu đồ content types (placeholder)
+              </div>
+            </article>
           </section>
 
           {/* Bottom: Schedule & Events */}
           <section className="bottom" aria-label="Lịch xuất bản & sự kiện">
-            {/* Calendar giữ nguyên static như cũ */}
+            {/* Calendar placeholder */}
             <article className="card calendar">
-              {/* ... phần lịch như hiện tại ... */}
+              <h3 style={{ margin: "0 0 1rem 0" }}>Lịch xuất bản</h3>
+              <div style={{ padding: "2rem", textAlign: "center", color: "var(--text-2)" }}>
+                Mini calendar view (placeholder)
+              </div>
             </article>
 
             <aside className="events">
