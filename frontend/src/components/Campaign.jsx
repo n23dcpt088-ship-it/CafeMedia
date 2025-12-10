@@ -4,48 +4,48 @@ import "../styles.css";
 
 const API_BASE = "http://localhost:5000/api";
 
+// Mock data mẫu
+const mockCampaigns = [
+  {
+    id: 1,
+    name: "Noel 2025 – \"Ấm cùng Cà phê\"",
+    start: "2025-12-01",
+    end: "2025-12-25",
+    channel: "Facebook",
+    status: "Đang chạy",
+    desc: "Chiến dịch lan toả thương hiệu dịp Giáng sinh, kết hợp minigame và livestream hướng dẫn pha chế.",
+    goal: "Mục tiêu: +25% tương tác",
+    progress: 68,
+    participants: "12.4K lượt tham gia"
+  },
+  {
+    id: 2,
+    name: "Tháng cà phê Việt",
+    start: "2025-10-01",
+    end: "2025-10-31",
+    channel: "YouTube",
+    status: "Hoàn thành",
+    desc: "Chuỗi video ngắn chia sẻ hành trình hạt cà phê từ nông trại đến ly cà phê hoàn hảo.",
+    goal: "Mục tiêu: 100K lượt xem",
+    progress: 100,
+    achievement: "Đạt: 112K"
+  },
+  {
+    id: 3,
+    name: "Ra mắt Cold Brew mới",
+    start: "2026-01-05",
+    end: "2026-02-15",
+    channel: "Instagram",
+    status: "Chuẩn bị",
+    desc: "Chiến dịch teaser sản phẩm mới, kết hợp video hậu trường và bài PR trên web.",
+    goal: "Chuẩn bị nội dung",
+    progress: 25
+  }
+];
+
 export default function Campaign({ navigate }) {
   const path = typeof window !== "undefined" ? window.location.pathname : "/campaign.html";
-  const isCampaignActive = path === "/campaign.html" || path === "/campaign";
-
-  // Mock data mẫu
-  const mockCampaigns = [
-    {
-      id: 1,
-      name: "Noel 2025 – \"Ấm cùng Cà phê\"",
-      start: "2025-12-01",
-      end: "2025-12-25",
-      channel: "Facebook",
-      status: "Đang chạy",
-      desc: "Chiến dịch lan toả thương hiệu dịp Giáng sinh, kết hợp minigame và livestream hướng dẫn pha chế.",
-      goal: "Mục tiêu: +25% tương tác",
-      progress: 68,
-      participants: "12.4K lượt tham gia"
-    },
-    {
-      id: 2,
-      name: "Tháng cà phê Việt",
-      start: "2025-10-01",
-      end: "2025-10-31",
-      channel: "YouTube",
-      status: "Hoàn thành",
-      desc: "Chuỗi video ngắn chia sẻ hành trình hạt cà phê từ nông trại đến ly cà phê hoàn hảo.",
-      goal: "Mục tiêu: 100K lượt xem",
-      progress: 100,
-      achievement: "Đạt: 112K"
-    },
-    {
-      id: 3,
-      name: "Ra mắt Cold Brew mới",
-      start: "2026-01-05",
-      end: "2026-02-15",
-      channel: "Instagram",
-      status: "Chuẩn bị",
-      desc: "Chiến dịch teaser sản phẩm mới, kết hợp video hậu trường và bài PR trên web.",
-      goal: "Chuẩn bị nội dung",
-      progress: 25
-    }
-  ];
+  const isCampaignActive = path === "/campaign";
 
   // State
   const [campaigns, setCampaigns] = useState(mockCampaigns);
@@ -57,7 +57,7 @@ export default function Campaign({ navigate }) {
     channel: "Facebook",
     goal: ""
   });
-  
+
   const loadCampaigns = useCallback(async () => {
     try {
       setLoading(true);
@@ -74,7 +74,7 @@ export default function Campaign({ navigate }) {
     } finally {
       setLoading(false);
     }
-  }, [mockCampaigns]);
+  }, []);
 
   useEffect(() => {
     loadCampaigns();
